@@ -42,6 +42,25 @@ const lodeVideosCategory = async (id) => {
     displayVideos(data.category);
     
 }
+// load videoCategoryDetails
+const videoCategoryDetails = async (videoId) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`);
+    const data = await res.json();
+    displayDetails(data.video)
+    
+}
+
+// display Show data
+const displayDetails = (video) => {
+    console.log(video);
+    const modalDetail = document.getElementById('modal-content');
+    modalDetail.innerHTML = `
+    <img class = 'rounded-lg' src=${video.thumbnail} />
+    <p>${video.description}</p>
+    `
+    document.getElementById('my_modal').showModal();
+    
+}
 
 // Remove active- color
 const removeActiveClass = () => {
@@ -50,6 +69,7 @@ const removeActiveClass = () => {
         btn.classList.remove('active')
     }
 }
+
 
 // Display-Videos
 const displayVideos = (videos) => {
@@ -92,6 +112,7 @@ const displayVideos = (videos) => {
                 </div>
                 <p class = 'text-xs font-normal'>${video.others.views}</p>
                 </div>
+                <p><button onClick ="videoCategoryDetails('${video.video_id}')" class = 'btn btn-sm btn-error'>Details</button></p>
             </div>
         `;
         videosContainer.appendChild(card)
@@ -108,7 +129,7 @@ const displayCategory = (categories) => {
         // Create container
         const btnContainer = document.createElement('div');
         btnContainer.innerHTML =`
-        <button id = 'btn-${item.category_id}' onClick = 'lodeVideosCategory(${item.category_id})' class = 'btn category-btn' >
+        <button id ='btn-${item.category_id}' onClick = 'lodeVideosCategory(${item.category_id})' class = 'btn category-btn' >
         ${item.category}
         </button>
         `
