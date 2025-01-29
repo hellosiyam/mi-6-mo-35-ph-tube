@@ -32,8 +32,8 @@ const lodeVideos = async () => {
     }
 
 }
-// load videoCatagory
-const lodeVideosCatagory = async (id) => {
+// load videoCategory
+const lodeVideosCategory = async (id) => {
     const activeBtn = document.getElementById(`btn-${id}`)
     removeActiveClass();
     activeBtn.classList.add('active')
@@ -59,7 +59,7 @@ const displayVideos = (videos) => {
         videosContainer.classList.remove('grid')
         videosContainer.innerHTML =`
         <div class= 'min-[450px] flex flex-col gap-5 items-center justify-center'>
-        <img src= 'recorces/Icon.png'/>
+        <img src= 'recurses/Icon.png'/>
         <p class = 'text-2xl font-bold text-center' >Oops!! Sorry, There is no content here</p>
         </div>
         `;
@@ -105,15 +105,15 @@ const displayCategory = (categories) => {
     categories.forEach((item) => {
         console.log(item);
 
-        // Create continer
-        const btnContiner = document.createElement('div');
-        btnContiner.innerHTML =`
-        <button id = 'btn-${item.category_id}' onClick = 'lodeVideosCatagory(${item.category_id})' class = 'btn category-btn' >
+        // Create container
+        const btnContainer = document.createElement('div');
+        btnContainer.innerHTML =`
+        <button id = 'btn-${item.category_id}' onClick = 'lodeVideosCategory(${item.category_id})' class = 'btn category-btn' >
         ${item.category}
         </button>
         `
         //Add button Category
-        categoryContainer.appendChild(btnContiner);
+        categoryContainer.appendChild(btnContainer);
 
     });
 }
