@@ -34,16 +34,39 @@ const lodeVideos = async () => {
 }
 // load videoCatagory
 const lodeVideosCatagory = async (id) => {
+    const activeBtn = document.getElementById(`btn-${id}`)
+    removeActiveClass();
+    activeBtn.classList.add('active')
     const res = await fetch (`https://openapi.programming-hero.com/api/phero-tube/category/${id}`);
     const data = await res.json();
     displayVideos(data.category);
     
 }
 
+// Remove active- color
+const removeActiveClass = () => {
+    const buttons = document.getElementsByClassName('category-btn');
+    for(let btn of buttons){
+        btn.classList.remove('active')
+    }
+}
+
 // Display-Videos
 const displayVideos = (videos) => {
     const videosContainer = document.getElementById('videos')
     videosContainer.innerHTML = '';
+    if (videos.length === 0) {
+        videosContainer.classList.remove('grid')
+        videosContainer.innerHTML =`
+        <div class= 'min-[450px] flex flex-col gap-5 items-center justify-center'>
+        <img src= 'recorces/Icon.png'/>
+        <p class = 'text-2xl font-bold text-center' >Oops!! Sorry, There is no content here</p>
+        </div>
+        `;
+        return
+    }else{
+        videosContainer.classList.add('grid') 
+    }
     videos.forEach((video) => {
         console.log(video);
 
@@ -85,7 +108,7 @@ const displayCategory = (categories) => {
         // Create continer
         const btnContiner = document.createElement('div');
         btnContiner.innerHTML =`
-        <button onClick = 'lodeVideosCatagory(${item.category_id})' class = 'btn' >
+        <button id = 'btn-${item.category_id}' onClick = 'lodeVideosCatagory(${item.category_id})' class = 'btn category-btn' >
         ${item.category}
         </button>
         `
