@@ -21,9 +21,9 @@ const lodeCategory = async () => {
 }
 
 // Load videos
-const lodeVideos = async () => {
+const lodeVideos = async (searchText = '') => {
     try {
-        const res = await fetch('https://openapi.programming-hero.com/api/phero-tube/videos');
+        const res = await fetch(` https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`);
         const data = await res.json();
         displayVideos(data.videos);
     }
@@ -138,6 +138,11 @@ const displayCategory = (categories) => {
 
     });
 }
+
+document.getElementById('search-input').addEventListener('keyup', (event)=>{
+    lodeVideos(event.target.value);
+    
+})
 
 lodeVideos();
 lodeCategory();
